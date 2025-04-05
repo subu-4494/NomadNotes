@@ -16,3 +16,24 @@ travel-book-app/
 │
 │── package.json
 │── README.md
+
+(ONLY BACKEND)
+
+NomadNotes/
+├── BACKEND/
+│   ├── server.js                <-- Entry point of the server (MONGODB CONNECTION LOGIC WRITTEN HERE IN INLINE )
+│   ├── .env                     <-- Environment variables (PORT, MONGO_URI, JWT_SECRET)
+│   ├── package.json             <-- Dependencies & scripts
+│   ├── uploads/                 <-- Stores uploaded images
+│   ├── models/
+│   │   ├── User.js              <-- User schema/model (username, email, password)
+│   │   └── Note.js              <-- Note schema/model (title, content, topic, image, user ref)
+│   ├── controllers/
+│   │   ├── authController.js    <-- Handles signup, login logic
+│   │   └── noteController.js    <-- Handles CRUD operations for notes
+│   ├── middlewares/
+│   │   └── authMiddleware.js    <-- Protects routes (checks JWT token)
+│   ├── routes/
+│   │   ├── authRoutes.js        <-- Auth routes: /register, /login
+│   │   └── noteRoutes.js        <-- Note routes: /add, /get, /delete, etc.
+
