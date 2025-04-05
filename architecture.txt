@@ -1,0 +1,18 @@
+travel-book-app/
+│── backend/
+│   ├── models/ (Mongoose schemas)
+│   ├── routes/ (API endpoints)
+│   ├── middleware/ (JWT authentication)
+│   ├── uploads/ (Stored images)
+│   ├── .env (Environment variables)
+│   ├── index.js (Main backend file)
+│
+│── frontend/
+│   ├── src/
+│   │   ├── components/ (Reusable components)
+│   │   ├── pages/ (Home, Login, Signup, Notes, etc.)
+│   │   ├── App.js
+│   │   ├── index.js
+│
+│── package.json
+│── README.md
