@@ -1,0 +1,202 @@
+body {
+  background-color: #fafafa;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+}
+
+.dashboard-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+  font-weight: 700;
+  font-size: 28px;
+  color: #1c1c1c;
+}
+
+.dashboard-header button {
+  padding: 10px 18px;
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.dashboard-header button:hover {
+  background-color: #d62839;
+}
+
+.notes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.note-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  color: #1e1e1e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease;
+}
+
+.note-card:hover {
+  transform: translateY(-2px);
+}
+
+.note-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+  background-color: #f0f0f0;
+}
+
+.enhanced-image:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.note-content {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+.note-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.note-actions button {
+  background: #4a90e2;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.note-actions button:hover {
+  background: #357abd;
+}
+
+.no-notes {
+  text-align: center;
+  color: #666;
+  margin-top: 40px;
+}
+
+.no-notes button {
+  margin-top: 15px;
+  padding: 12px 24px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.no-notes button:hover {
+  background-color: #357abd;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content container */
+.modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Full size image inside modal */
+.modal-image {
+  max-width: 90%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: white;
+  border: none;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  line-height: 32px;
+  text-align: center;
+  padding: 0;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.carousel-button {
+  pointer-events: all;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 2rem;
+  padding: 8px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background-color 0.2s ease;
+}
+
+.carousel-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}

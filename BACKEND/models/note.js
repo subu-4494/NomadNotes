@@ -18,9 +18,9 @@ const noteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  image: {
-    type: String, // image filename or URL
-    default: ""
+  images: {
+    type: [String], // image filename or URL
+    default: []
   }
 }, { timestamps: true });
 

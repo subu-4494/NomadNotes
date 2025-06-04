@@ -1,0 +1,155 @@
+.landing-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #4A90E2, #50E3C2);
+  color: #fff;
+}
+
+.footer {
+  background-color: #000;
+  text-align: center;
+  padding: 8px 0;
+  font-size: 6px; /* very small, confirm if you want this */
+  color: #666;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.left-panel {
+  flex: 1;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  text-align: center;
+}
+
+.image-carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+  margin-bottom: 3px;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  justify-content: center;
+}
+
+.image-carousel img {
+  width: 220px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  scroll-snap-align: center;
+  transition: transform 0.3s ease;
+}
+
+.image-carousel img:hover {
+  transform: scale(1.05);
+}
+
+.image-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.image-carousel {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.left-panel h3 {
+  font-size: 2rem;
+  margin-bottom: 4px;
+  letter-spacing: 1.5px;
+}
+
+.left-panel p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 500px;
+  opacity: 0.9;
+}
+
+.right-panel {
+  flex: 1;
+  background: #fff;
+  padding: 50px 40px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form {
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 18px;
+  border-radius: 30px;
+  border: none;
+  background-color: #4A90E2;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #357ABD;
+}
+
+@media (max-width: 768px) {
+  .landing-container {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    border-radius: 0;
+    padding: 30px 20px;
+  }
+
+  .image-carousel img {
+    width: 150px;
+  }
+}
+
+.typing-effect {
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid #fff; /* white caret */
+  width: 500ch; /* full text length */
+  animation: typing 90s steps(500), blink-caret 0.75s step-end infinite;
+  margin-top: 4px;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 500ch;
+  }
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #fff;
+  }
+}

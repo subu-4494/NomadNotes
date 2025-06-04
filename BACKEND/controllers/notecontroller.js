@@ -1,17 +1,18 @@
 const Note = require("../models/note");
 
-// Create a new note
+// Create a new note with multiple images
 const createNote = async (req, res) => {
   try {
     const { title, content, topic } = req.body;
-    const image = req.file ? req.file.filename : ""; // multer handles file
+    // req.files is an array if multiple files uploaded
+    const images = req.files ? req.files.map(file => file.filename) : [];
 
     const note = new Note({
       user: req.user.id, // from auth middleware
       title,
       content,
       topic,
-      image,
+      images: images, // save array of image filenames
     });
 
     await note.save();
@@ -31,7 +32,7 @@ const getNotes = async (req, res) => {
   }
 };
 
-// Update a note
+// Update a note (including images)
 const updateNote = async (req, res) => {
   try {
     const { title, content, topic } = req.body;
@@ -44,6 +45,12 @@ const updateNote = async (req, res) => {
     note.title = title || note.title;
     note.content = content || note.content;
     note.topic = topic || note.topic;
+
+    // If new images are uploaded, append them to existing images array
+    if (req.files && req.files.length > 0) {
+      const newImages = req.files.map(file => file.filename);
+      note.images = [...note.images, ...newImages]; // concatenate arrays
+    }
 
     await note.save();
     res.status(200).json(note);
