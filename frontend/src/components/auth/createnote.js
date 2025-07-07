@@ -29,7 +29,7 @@ function CreateNote() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/notes/create", {
+      const response = await fetch("https://nomadnotes-backend.onrender.com/api/notes/create", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

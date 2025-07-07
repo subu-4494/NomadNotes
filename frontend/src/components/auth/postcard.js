@@ -16,7 +16,7 @@ function PostCard({ note, handleDelete, handleUpdate }) {
     <div className="post-card">
       <div className="image-container">
         <img
-          src={`http://localhost:5000/uploads/${note.images[currentImage]}`}
+          src={`https://nomadnotes-backend.onrender.com/uploads/${note.images[currentImage]}`}
           alt="Note Slide"
           className="main-image"
         />
