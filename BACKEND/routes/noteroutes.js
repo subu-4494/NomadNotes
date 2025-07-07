@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// 🔐 Protected Routes (only logged-in users can access)
+//  Protected Routes (only logged-in users can access)
 // Now accepts multiple images, max 5 files per upload
 router.post("/create", authMiddleware, upload.array("images", 5), createNote);
 router.get("/", authMiddleware, getNotes);
