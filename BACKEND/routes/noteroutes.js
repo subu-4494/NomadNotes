@@ -1,14 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const {
+import { Router } from "express";
+import multer from "multer";
+import path from "path";
+
+import {
   createNote,
   getNotes,
   updateNote,
   deleteNote,
-} = require("../controllers/notecontroller");
-const authMiddleware = require("../middlewares/authmiddlewares");
-const multer = require("multer");
-const path = require("path");
+} from "../controllers/notecontroller.js";
+import authMiddleware from "../middlewares/authmiddlewares.js";
+
+const router = Router();
 
 // 📷 Multer setup for image uploads
 const storage = multer.diskStorage({
@@ -30,4 +32,4 @@ router.get("/", authMiddleware, getNotes);
 router.put("/:id", authMiddleware, upload.array("images", 5), updateNote);
 router.delete("/:id", authMiddleware, deleteNote);
 
-module.exports = router;
+export default router;

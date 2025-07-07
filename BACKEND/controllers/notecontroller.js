@@ -1,10 +1,9 @@
-const Note = require("../models/note");
+import Note from "../models/note.js";
 
 // Create a new note with multiple images
-const createNote = async (req, res) => {
+export const createNote = async (req, res) => {
   try {
     const { title, content, topic } = req.body;
-    // req.files is an array if multiple files uploaded
     const images = req.files ? req.files.map(file => file.filename) : [];
 
     const note = new Note({
@@ -12,7 +11,7 @@ const createNote = async (req, res) => {
       title,
       content,
       topic,
-      images: images, // save array of image filenames
+      images,
     });
 
     await note.save();
@@ -23,7 +22,7 @@ const createNote = async (req, res) => {
 };
 
 // Get all notes for logged-in user
-const getNotes = async (req, res) => {
+export const getNotes = async (req, res) => {
   try {
     const notes = await Note.find({ user: req.user.id }).sort({ createdAt: -1 });
     res.status(200).json(notes);
@@ -33,7 +32,7 @@ const getNotes = async (req, res) => {
 };
 
 // Update a note (including images)
-const updateNote = async (req, res) => {
+export const updateNote = async (req, res) => {
   try {
     const { title, content, topic } = req.body;
     const note = await Note.findById(req.params.id);
@@ -46,10 +45,9 @@ const updateNote = async (req, res) => {
     note.content = content || note.content;
     note.topic = topic || note.topic;
 
-    // If new images are uploaded, append them to existing images array
     if (req.files && req.files.length > 0) {
       const newImages = req.files.map(file => file.filename);
-      note.images = [...note.images, ...newImages]; // concatenate arrays
+      note.images = [...note.images, ...newImages];
     }
 
     await note.save();
@@ -60,7 +58,7 @@ const updateNote = async (req, res) => {
 };
 
 // Delete a note
-const deleteNote = async (req, res) => {
+export const deleteNote = async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
 
@@ -73,11 +71,4 @@ const deleteNote = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: "Error deleting note", error: err.message });
   }
-};
-
-module.exports = {
-  createNote,
-  getNotes,
-  updateNote,
-  deleteNote,
 };
