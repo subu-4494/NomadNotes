@@ -1,32 +1,51 @@
-/* login.css */
-
-/* Full page black background, center form vertically and horizontally */
 body.login-page,
 html.login-page {
   height: 100%;
   margin: 0;
-  background-color: #000; /* pure black background */
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
+/* 🎥 VIDEO BACKGROUND */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* LOGIN FORM */
 .login-form {
   width: 100%;
   max-width: 400px;
   padding: 30px 25px;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.1); /* subtle translucent white */
+  background-color: rgba(0, 0, 0, 0.7);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   color: #eee;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  z-index: 1;
 }
 
 .login-form h2 {
@@ -106,7 +125,6 @@ html.login-page {
   text-decoration: underline;
 }
 
-/* Instagram-like mobile styling */
 @media (max-width: 480px) {
   .login-form {
     max-width: 100%;

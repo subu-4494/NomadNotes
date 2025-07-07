@@ -5,29 +5,24 @@ function CreateNote() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [topic, setTopic] = useState("");
-  const [images, setImages] = useState([]);  // Array for multiple images
+  const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Handle multiple image selection
   function handleImageChange(e) {
-    setImages(Array.from(e.target.files));  // convert FileList to Array
+    setImages(Array.from(e.target.files));
   }
 
-  // Handle form submission
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    // Prepare form data for file upload
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
     formData.append("topic", topic);
-
-    // Append multiple images
     images.forEach((imageFile) => {
       formData.append("images", imageFile);
     });
@@ -37,9 +32,9 @@ function CreateNote() {
       const response = await fetch("http://localhost:5000/api/notes/create", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`, // send auth token
+          Authorization: `Bearer ${token}`,
         },
-        body: formData, // send form data with images
+        body: formData,
       });
 
       const data = await response.json();
@@ -47,7 +42,7 @@ function CreateNote() {
 
       if (response.ok) {
         alert("Note created successfully!");
-        navigate("/dashboard");  // go back to dashboard after creating note
+        navigate("/dashboard");
       } else {
         setError(data.message || "Failed to create note");
       }
@@ -58,58 +53,139 @@ function CreateNote() {
   }
 
   return (
-    <div className="create-note-container" style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
-      <h2>Create New Note</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          style={{ width: "100%", marginBottom: 10, padding: 8 }}
-        />
-        <textarea
-          placeholder="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-          rows={5}
-          style={{ width: "100%", marginBottom: 10, padding: 8 }}
-        />
-        <input
-          type="text"
-          placeholder="Topic"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          required
-          style={{ width: "100%", marginBottom: 10, padding: 8 }}
-        />
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleImageChange}
-          style={{ marginBottom: 15 }}
-        />
+    <>
+      {/* Video Background */}
+      <div className="video-background">
+        <video src="/assets/vid10.mp4" autoPlay loop muted />
+        <video src="/assets/vid11.mp4" autoPlay loop muted />
+        <video src="/assets/vid12.mp4" autoPlay loop muted />
+      </div>
+      <div className="video-overlay"></div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#4A90E2",
-            color: "white",
-            border: "none",
-            borderRadius: 5,
-            cursor: loading ? "not-allowed" : "pointer",
-          }}
-        >
-          {loading ? "Creating..." : "Create Note"}
-        </button>
-      </form>
-    </div>
+      {/* Form wrapper to center */}
+      <div className="form-wrapper">
+        <div className="create-note-container">
+          <h2>Create New Note</h2>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+            <textarea
+              placeholder="Content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+              rows={5}
+            />
+            <input
+              type="text"
+              placeholder="Topic"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              required
+            />
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageChange}
+            />
+
+            <button type="submit" disabled={loading}>
+              {loading ? "Creating..." : "Create Note"}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* CSS */}
+      <style>
+        {`
+        .video-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          z-index: -2;
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .video-background video {
+          flex: 1 1 33%;
+          min-width: 33%;
+          min-height: 33%;
+          object-fit: cover;
+          filter: brightness(0.4) contrast(1.1);
+        }
+
+        .video-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.5);
+          z-index: -1;
+        }
+
+        .form-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+
+        .create-note-container {
+          max-width: 600px;
+          width: 90%;
+          background: rgba(0,0,0,0.6);
+          padding: 20px;
+          border-radius: 10px;
+          color: #fff;
+        }
+
+        .create-note-container h2 {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        .create-note-container form {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .create-note-container input,
+        .create-note-container textarea {
+          margin-bottom: 10px;
+          padding: 10px;
+          border: none;
+          border-radius: 5px;
+        }
+
+        .create-note-container button {
+          padding: 10px;
+          background-color: #4A90E2;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        .create-note-container button:disabled {
+          background-color: #6ea1e6;
+          cursor: not-allowed;
+        }
+        `}
+      </style>
+    </>
   );
 }
 

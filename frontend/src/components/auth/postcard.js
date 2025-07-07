@@ -1,8 +1,7 @@
-// PostCard.js
 import React, { useState } from "react";
-import "./postcard.css"; // include the styling below
+import "./postcard.css";
 
-function PostCard({ note }) {
+function PostCard({ note, handleDelete, handleUpdate }) {
   const [currentImage, setCurrentImage] = useState(0);
 
   const handlePrev = () => {
@@ -47,8 +46,16 @@ function PostCard({ note }) {
         <p><strong>Topic:</strong> {note.topic}</p>
         <p>{note.content}</p>
         <p className="timestamp">{new Date(note.createdAt).toLocaleString()}</p>
+
+          <button
+            className="delete-btn"
+            onClick={() => handleDelete(note._id)}
+          >
+            Delete
+          </button>
+        </div>
       </div>
-    </div>
+   
   );
 }
 

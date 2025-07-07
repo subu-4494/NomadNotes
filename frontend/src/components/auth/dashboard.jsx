@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getNotes, deleteNote } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
-import PostCard from "./postcard"; // adjust path if needed
+import PostCard from "./postcard";
 
 function Dashboard() {
   const [notes, setNotes] = useState([]);
@@ -22,7 +22,6 @@ function Dashboard() {
     setError(null);
     try {
       const data = await getNotes();
-      console.log("Fetched notes from backend:", data); // ✅ DEBUG
       setNotes(data);
     } catch (err) {
       setError(err?.message || "Failed to load notes.");
@@ -80,66 +79,83 @@ function Dashboard() {
   const username = localStorage.getItem("username") || "User";
 
   return (
-    <div className="dashboard-container">
-      <header className="dashboard-header">
-        <h1>Welcome, {username}</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </header>
-
-      {loading && <p className="loading-text">Loading your notes...</p>}
-      {error && <p className="error">{error}</p>}
-
-      {!loading && notes.length === 0 && (
-        <div className="no-notes">
-          <p>You have no notes yet.</p>
-          <button onClick={handleCreate}>Create your first note</button>
-        </div>
-      )}
-
-      <div className="create-post-wrapper" style={{ margin: "20px 0", textAlign: "center" }}>
-  <button onClick={handleCreate} className="create-post-button">
-     Create New Post
-  </button>
-</div>
-
-      <div className="notes-list">
-        {notes.map((note) => (
-          <PostCard
-            key={note._id}
-            note={note}
-            openModal={openModal}
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
+    <>
+      {/*  Video Background */}
+      <div className="video-background">
+        {[...Array(9)].map((_, i) => (
+          <video
+            key={i}
+            src={`/assets/vid${i + 1}.mp4`}
+            autoPlay
+            loop
+            muted
           />
         ))}
+        <div className="video-overlay"></div>
       </div>
 
-      {isModalOpen && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={modalImages[currentImageIndex]}
-              alt="Zoomed"
-              className="modal-image"
-            />
-            <button className="modal-close" onClick={closeModal}>
-              &times;
-            </button>
+      <div className="dashboard-container">
+        <header className="dashboard-header">
+          <h1>Welcome, {username}</h1>
+          <p style={{ fontSize: "16px", color: "#fff", marginTop: "5px" }}>
+            ✈️ Tell me, how was your last trip {username}?
+          </p>
+          <button onClick={handleLogout}>Logout</button>
+        </header>
 
-            {modalImages.length > 1 && (
-              <div className="carousel-controls">
-                <button className="carousel-button" onClick={goToPreviousImage}>
-                  &#8592;
-                </button>
-                <button className="carousel-button" onClick={goToNextImage}>
-                  &#8594;
-                </button>
-              </div>
-            )}
-          </div>
+        {loading && <p className="loading-text">Loading your notes...</p>}
+        {error && <p className="error">{error}</p>}
+
+        <div
+          className="create-post-wrapper"
+          style={{ margin: "20px 0", textAlign: "center" }}
+        >
+          <button onClick={handleCreate} className="create-post-button">
+            Create New Post
+          </button>
         </div>
-      )}
-    </div>
+
+        <div className="notes-list">
+          {notes.map((note) => (
+            <PostCard
+              key={note._id}
+              note={note}
+              openModal={openModal}
+              handleDelete={handleDelete}
+            />
+          ))}
+        </div>
+
+        {isModalOpen && (
+          <div className="modal-overlay" onClick={closeModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={modalImages[currentImageIndex]}
+                alt="Zoomed"
+                className="modal-image"
+              />
+              <button className="modal-close" onClick={closeModal}>
+                &times;
+              </button>
+
+              {modalImages.length > 1 && (
+                <div className="carousel-controls">
+                  <button
+                    className="carousel-button"
+                    onClick={goToPreviousImage}
+                  >
+                    &#8592;
+                  </button>
+                  <button className="carousel-button" onClick={goToNextImage}>
+                    &#8594;
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

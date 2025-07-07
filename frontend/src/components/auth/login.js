@@ -10,7 +10,6 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Add class to body and html on mount, remove on unmount
   useEffect(() => {
     document.body.classList.add("login-page");
     document.documentElement.classList.add("login-page");
@@ -39,33 +38,47 @@ function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="login-form">
-      <h2>Login</h2>
-      {error && <p className="error-message">{error}</p>}
+    <>
+      <div className="video-background">
+        <video src="/assets/vid7.mp4" autoPlay loop muted />
+        <video src="/assets/vid8.mp4" autoPlay loop muted />
+        <video src="/assets/vid6.mp4" autoPlay loop muted />
+        <video src="/assets/vid5.mp4" autoPlay loop muted />
+        <video src="/assets/vid9.mp4" autoPlay loop muted />
+        <video src="/assets/vid3.mp4" autoPlay loop muted />
+        <video src="/assets/vid1.mp4" autoPlay loop muted />
+        <video src="/assets/vid2.mp4" autoPlay loop muted />
+        <video src="/assets/vid4.mp4" autoPlay loop muted />
+      </div>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2>Login</h2>
+        {error && <p className="error-message">{error}</p>}
 
-      <button type="submit" disabled={loading}>
-        {loading ? "Logging in..." : "Login"}
-      </button>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
 
-      <p>
-        Don't have an account? <Link to="/">Register here</Link>
-      </p>
-    </form>
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
+
+        <p>
+          Don’t have an account? <Link to="/">Register here</Link>
+        </p>
+      </form>
+    </>
   );
 }
 
