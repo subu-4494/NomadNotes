@@ -9,6 +9,9 @@ dotenv.config(); // load variables from .env
 //connectDB();
 
 
+const __dirname= path.resolve();
+
+
 const app = express();
 
 // Middlewares
@@ -19,6 +22,14 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // serve u
 // Routes
 app.use("/api/auth", require("./routes/authroutes"));
 app.use("/api/notes", require("./routes/noteroutes"));
+
+if(process.env.NODE_ENV==="production"){
+  app.use( express.static(path.join(__dirname, "../frontend/build"))); 
+  
+  app.get("*", (req,res) =>{
+      res.sendFile(path.join(__dirname,"../frontend", "dist","inhdex.html"));
+  })
+}
 
 // Connect MongoDB and Start Server
 mongoose.connect(process.env.MONGO_URI)
