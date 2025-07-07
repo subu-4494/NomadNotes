@@ -44,9 +44,10 @@ function PostCard({ note, handleDelete, handleUpdate }) {
       <div className="post-details">
         <h3>{note.title}</h3>
         <p><strong>Topic:</strong> {note.topic}</p>
-        <p>{note.content}</p>
+        <p className="note-content">{note.content}</p>
         <p className="timestamp">{new Date(note.createdAt).toLocaleString()}</p>
 
+        <div className="post-actions">
           <button
             className="delete-btn"
             onClick={() => handleDelete(note._id)}
@@ -55,7 +56,7 @@ function PostCard({ note, handleDelete, handleUpdate }) {
           </button>
         </div>
       </div>
-   
+    </div>
   );
 }
 
