@@ -5,7 +5,7 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// load variables from .env
+// Load .env variables
 dotenv.config();
 
 // ESM workaround for __dirname
@@ -14,10 +14,21 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+// CORS configuration
+const allowedOrigins = [
+  "https://travelwithnomad.vercel.app", // your frontend deployed on Vercel
+  "http://localhost:3000"              // local dev
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
+}));
+
 // Middlewares
-app.use(cors());
 app.use(express.json()); // parse JSON
-app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // serve uploads
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // serve uploads if needed
 
 // Routes
 import authRoutes from "./routes/authroutes.js";
@@ -26,17 +37,22 @@ import noteRoutes from "./routes/noteroutes.js";
 app.use("/api/auth", authRoutes);
 app.use("/api/notes", noteRoutes);
 
-// Serve frontend in production
+// (optional) Serve frontend if you ever want to serve React from here
+// const frontendPath = path.join(__dirname, "../frontend/build");
+// app.use(express.static(frontendPath));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(frontendPath, "index.html"));
+// });
 
-
-// Connect MongoDB and start server
+// MongoDB connection & start server
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB Connected");
-    app.listen(process.env.PORT || 5000, () => {
-      console.log(`🚀 Server running on http://localhost:${process.env.PORT || 5000}`);
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at: http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
-    console.error(" MongoDB connection error:", err.message);
+    console.error("❌ MongoDB connection error:", err.message);
   });
